@@ -84,4 +84,6 @@ class MultiHeadAttention(nn.Module):
         # (Batch, Seq_Len, d_model) -> (Batch, Seq_Len, d_model)
         query, key, value = self.w_q(q), self.w_k(k), self.w_v(v) 
         
+        df
+        
         
