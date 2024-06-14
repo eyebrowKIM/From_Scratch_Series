@@ -13,8 +13,9 @@ from tokenizers.models import WordLevel
 from tokenizers.trainers import WordLevelTrainer
 from tokenizers.pre_tokenizers import Whitespace
 
-import torch.utils.tensorboard as SummaryWriter
+from torch.utils.tensorboard.writer import SummaryWriter
 
+import warnings
 from tqdm import tqdm
 
 from pathlib import Path
@@ -36,7 +37,7 @@ def get_or_build_tokenizer(config, ds, lang):
     return tokenizer
 
 def get_ds(config):
-    ds_raw = load_dataset('opus_books', f'{config['lang_src']}-{config['lang_tgt']}', split='train')
+    ds_raw = load_dataset(path='opus_books', name=f"{config['lang_src']}-{config['lang_tgt']}", split='train')
     
     # Build tokenizers
     tokenizer_src = get_or_build_tokenizer(config, ds_raw, config['lang_src'])
@@ -73,7 +74,7 @@ def get_model(config, vocab_src_len, vocab_tgt_len):
 
 def train_model(config):
     # Define the device
-    device = torch.device('cuda' if torch.cuda_is_available() else 'cpu')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f'Using device: {device}')
     
     Path(config['model_folder']).mkdir(parents=True, exist_ok=True)
@@ -120,4 +121,27 @@ def train_model(config):
             
             # Log the loss
             writer.add_scalar('train loss', loss.item(), global_step)
+            writer.flush()
             
+            # Backporpagation
+            loss.backward()
+            
+            # Update the weights
+            optimizer.step()
+            optimizer.zero_grad()
+            
+            global_step += 1
+            
+        # Save the model at the end of every epoch
+        model_filename = get_weights_file_path(config, f'{epoch:02d}')
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'global_step': global_step
+        }, model_filename)
+        
+if __name__ == '__main__':
+    warnings.filterwarnings('ignore')
+    config = get_config()
+    train_model(config)

@@ -1,0 +1,7 @@
+pytorch-transformer/
+
+__pycache__/
+runs/
+weights/
+
+*.json

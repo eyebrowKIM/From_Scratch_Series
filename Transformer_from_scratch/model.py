@@ -36,7 +36,7 @@ class PositionalEncoding(nn.Module):
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
         
-        self.pe = pe.unsqueeze(0) # (1, Seq_len, d_model)
+        pe = pe.unsqueeze(0) # (1, Seq_len, d_model)
         
         self.register_buffer('pe', pe)
         
@@ -63,7 +63,7 @@ class LayerNormalization(nn.Module):
 class FeedForwardBlock(nn.Module):
     
     def __init__(self, d_model: int, d_ff: int, dropout: float) -> None:
-        super.__init__()
+        super().__init__()
         self.linear_1 = nn.Linear(d_model, d_ff)
         self.dropout = nn.Dropout(dropout)
         self.linear_2 = nn.Linear(d_ff, d_model)
