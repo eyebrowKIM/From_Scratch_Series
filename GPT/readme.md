@@ -1,6 +1,6 @@
 # Karpathy Clone Coding
 
-This repository contains the code and materials for the "Zero to Hero: NanoGPT - The Big Picture" YouTube tutorial by Andrej Karpathy. The tutorial covers the implementation and understanding of the GPT (Generative Pre-trained Transformer) model from scratch.
+This repository contains the code and materials for the "Let's build GPT: from scratch, in code, spelled out." YouTube tutorial by Andrej Karpathy. The tutorial covers the implementation and understanding of the GPT (Generative Pre-trained Transformer) model from scratch.
 
 ## YouTube Tutorial
 
