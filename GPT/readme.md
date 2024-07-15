@@ -4,7 +4,7 @@ This repository contains the code and materials for the "Zero to Hero: NanoGPT -
 
 ## YouTube Tutorial
 
-Watch the full tutorial on YouTube: [Zero to Hero: NanoGPT - The Big Picture](https://youtu.be/kCc8FmEb1nY?si=QUUIURe5A0ZWD5Es)
+Watch the full tutorial on YouTube: [Let's build GPT: from scratch, in code, spelled out.](https://youtu.be/kCc8FmEb1nY?si=QUUIURe5A0ZWD5Es)
 
 ## Original Repository
 
