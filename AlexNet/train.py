@@ -1,38 +1,15 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
 
 from torchvision import datasets, transforms
-from torchvision.datasets import ImageNet
+from alexnet import AlexNet
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-transform = transforms.Compose(
-    [
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ]
-)
-
 batch_size = 100
 
-
-train_loader = ImageNet(root='dataset/',
-                        split='train',
-                        transform=transform,
-                        download=True)
-
-test_loader = ImageNet(root='dataset/',
-                        split='val',
-                        transform=transform,
-                        download=True)
-
-train_data = DataLoader(dataset=train_loader, batch_size=batch_size, shuffle=True)
-
-def train_alexnet():
-    from alexnet import AlexNet
+def train_alexnet(train_data):
 
     model = AlexNet(num_classes=1000).to(device)
 
