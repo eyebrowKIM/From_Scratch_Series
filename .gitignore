@@ -4,6 +4,10 @@ __pycache__/
 runs/
 weights/
 dataset/
+result/
+
+tiny-imagenet-200/
+cifar-10-batches-py/
 
 *.json
 *.txt
